@@ -1,0 +1,37 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Openlayers web map</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./libs/v6.2.1-dist/ol.css">
+</head>
+<body>
+    <div class='wrapper'>
+        <div class='radioDiv'>
+            <label class='checkContainer'>
+                <input class='checkContainer' type="radio" name='baseLayerRadioBtn' value='OSMStandard' checked>Standard<br>
+                <span class='checkmark'></span>
+            </label>
+            <label class='checkContainer'>
+                <input class='checkContainer' type="radio" name='baseLayerRadioBtn' value='OSMHumanitarian'>Humanitarian<br>            
+                <span class='checkmark'></span>
+            </label>
+            <label class='checkContainer'>
+               <input class='checkContainer' type="radio" name='baseLayerRadioBtn' value='StamenTerrain'>Terrain<br>            
+               <span class='checkmark'></span>
+            </label>
+        </div>
+        <div class="overlay-container">
+            <span class='overlay-text' id='feature-name'></span><br>
+            <span class='overlay-text' id='feature-additional-info'></span><br><br>
+            <button class='overlay-text' id='feature-to-do'></button><br>
+        </div>
+        <div class="mapDiv">
+            <div id='js-map' class='map'></div> 
+        </div>
+    </div>
+    <script type='module' src ='main.js'></script>
+    <script src='./libs/v6.2.1-dist/ol.js'></script>
+</body>
+</html>
