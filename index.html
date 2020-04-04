@@ -8,26 +8,30 @@
 </head>
 <body>
     <div class='wrapper'>
-        <div class='radioDiv'>
-            <label class='checkContainer'>
-                <input class='checkContainer' type="radio" name='baseLayerRadioBtn' value='OSMStandard' checked>Standard<br>
+        <div class='radio-div' id='radio-div'>
+            <label class='check-container'>
+                <input class='check-container' type="radio" name='baseLayerRadioBtn' value='OSMStandard' checked>Standard<br>
                 <span class='checkmark'></span>
             </label>
-            <label class='checkContainer'>
-                <input class='checkContainer' type="radio" name='baseLayerRadioBtn' value='OSMHumanitarian'>Humanitarian<br>            
+            <label class='check-container'>
+                <input class='check-container' type="radio" name='baseLayerRadioBtn' value='OSMHumanitarian'>Humanitarian<br>            
                 <span class='checkmark'></span>
             </label>
-            <label class='checkContainer'>
-               <input class='checkContainer' type="radio" name='baseLayerRadioBtn' value='StamenTerrain'>Terrain<br>            
+            <label class='check-container'>
+               <input class='check-container' type="radio" name='baseLayerRadioBtn' value='StamenTerrain'>Terrain<br>            
                <span class='checkmark'></span>
             </label>
+        </div>
+        <div id='attraction-info-div'>
+            <span class='attraction-text' id='attraction-address' value='attrationaddress'></span><br><br>
+            <span class='attraction-text' id='attraction-description' value='attractiondescrip'></span>
         </div>
         <div class="overlay-container">
             <span class='overlay-text' id='feature-name'></span><br>
             <span class='overlay-text' id='feature-additional-info'></span><br><br>
             <button class='overlay-text' id='feature-to-do'></button><br>
         </div>
-        <div class="mapDiv">
+        <div class="map-div">
             <div id='js-map' class='map'></div> 
         </div>
     </div>

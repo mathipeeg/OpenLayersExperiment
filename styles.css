@@ -1,155 +1,185 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Helvetica;
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica;
 }
 
-.radioDiv {
-    position: absolute;
-    padding: 0px;
-    top: 80px;
-    left: 10px;
-    background: rgba(255, 255, 255, 0.4);
-    width: 9rem;
-    height: 8.rem;
-    border-radius: 7px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    z-index: 1;
+.radio-div {
+  position: absolute;
+  padding: 0px;
+  top: 80px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.4);
+  width: 9rem;
+  height: 8rem;
+  border-radius: 7px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 1;
 }
 
 .wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.checkContainer {
-    position: absolute;
-    z-index: 1;
-    font-size: 14px;
-}
-
-.mapDiv {
-    position: absolute;
+  position: relative;
   width: 100%;
   height: 100%;
-  background: #eee;
 }
 
-  /*Sidebox buttons*/
-  .checkContainer {
-    display: block;
-    position: relative;
-    padding-top: 15px;
-    padding-left: 40px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+.check-container {
+  position: absolute;
+  z-index: 1;
+  font-size: 14px;
 }
-  
-  /* Hide the browser's default radio button */
-  .checkContainer input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    z-index: 2;
+
+.map-div {
+position: absolute;
+width: 100%;
+height: 100%;
+background: #eee;
 }
-  
-  /* -----RADIO BUTTONS----- */
-  .checkmark {
-    position: absolute;
-    top:15px;
-    left: 15px;
-    height: 15px;
-    width: 15px;
-    background-color: rgb(61, 93, 182);
-    border-radius: 50%;
-    z-index: 2;
+
+/*Sidebox buttons*/
+.check-container {
+  display: block;
+  position: relative;
+  padding-top: 15px;
+  padding-left: 40px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-  
-  /* On mouse-over, add a grey background color */
-  .checkContainer:hover input ~ .checkmark {
-    background-color: #2196F3;
+
+/* Hide the browser's default radio button */
+.check-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
 }
-  
-  /* When the radio button is checked, add a blue background */
-  .checkContainer input:checked ~ .checkmark {
-    background-color: #2196F3;
+
+/* -----RADIO BUTTONS----- */
+.checkmark {
+  position: absolute;
+  top:15px;
+  left: 15px;
+  height: 15px;
+  width: 15px;
+  background-color: rgb(61, 93, 182);
+  border-radius: 50%;
+  z-index: 2;
 }
-  
-  /* Create the indicator (the dot/circle - hidden when not checked) */
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
+
+/* On mouse-over, add a grey background color */
+.check-container:hover input ~ .checkmark {
+  background-color: #2196F3;
 }
-  
-  /* Show the indicator (dot/circle) when checked */
-  .checkContainer input:checked ~ .checkmark:after {
-    display: block;
+
+/* When the radio button is checked, add a blue background */
+.check-container input:checked ~ .checkmark {
+  background-color: #2196F3;
 }
-  
-  /* Style the indicator (dot/circle) */
-  .checkContainer .checkmark:after {
-    top: 4px;
-    left: 4px;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: white;
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.check-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.check-container .checkmark:after {
+  top: 4px;
+  left: 4px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: white;
 }
 
 /* ------Feature Overlay------ */
 .overlay-container{
-    background: rgba(246, 246, 246, 0.8);
-    width: 180px;
-    text-align: center;
-    border-radius: 1px;
-    padding: 2px;
-    position: absolute;
-    z-index: 1;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -80px;
-    border-radius: 20px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  background: rgba(246, 246, 246, 0.8);
+  width: 180px;
+  text-align: center;
+  border-radius: 1px;
+  padding: 2px;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -80px;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .overlay-text{
-    color: rgba(0, 0, 0, 1);
-    opacity: 1;
+  color: rgba(0, 0, 0, 1);
+  opacity: 1;
 }
 
 .overlay-container #feature-additional-info::after{
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -10ox;
-    border-width: 10px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -10ox;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
 }
 
 #feature-name{
-    font-size: larger;
-    font-weight: bold;
+  font-size: larger;
+  font-weight: bold;
 }
 
 #feature-additional-info{
-    font-size: smaller;
+  font-size: smaller;
 }
 
 #feature-to-do{
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+#attraction-info-div {
+position: absolute;
+  padding: 0px;
+  top: 230px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  width: 13rem;
+  height: 14rem;
+  overflow: auto;
+  border-radius: 7px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  display: none;
+}
+
+.attraction-text {
+position: absolute;
+font-size: 14px;
+margin: 15px;
+}
+
+#attraction-address {
+font-style: italic;
+color: #555;
+}
+
+#attraction-description {
+font-weight: 500;
 }

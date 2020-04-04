@@ -1,18 +1,23 @@
 // import {fromLonLat} from 'C:/Users/Math_/AppData/Local/Microsoft/TypeScript/3.8/node_modules/@types/ol/proj';
-// import View from 'ol/View';
+//import * as proj from './libs/6.2.1-dist/ol.js';
+
 
 window.onload = init;
 
 function init(){
+
+    var view = new ol.View({
+        center: [1207636.1812126199, 6828169.926997306], //x, y
+        zoom: 6,
+        maxZoom: 15,
+        minZoom: 4
+    })
+
+    let currentFeature = null;
+
     const map = new ol.Map({
         //Create three things, view, layers and target.
-        view: new ol.View({
-            center: [1207636.1812126199, 6828169.926997306], //x, y
-            zoom: 6,
-            maxZoom: 10,
-            minZoom: 4,
-            // rotation: 0.5
-        }),
+        view: view,
         target: 'js-map'
     })
 
@@ -104,9 +109,11 @@ function init(){
     const overlayFeatureTodo = document.getElementById('feature-to-do');
 
     map.on('click', function(e){
-        console.log(overlayFeatureTodo);
         overlayLayer.setPosition(undefined);
+        document.getElementById('attraction-info-div').style.display = 'none';
+        //^ fjerner boksene når der klikkes
         map.forEachFeatureAtPixel(e.pixel, function(feature, layer){
+            currentFeature = feature;
             let clickedCoordinate = e.coordinate;
             let clickedFeatureName = feature.get('name');
             let clickedFeatureAdditionInfo = feature.get('additionalinfo');
@@ -123,18 +130,52 @@ function init(){
         })
     })  
 
-    // var view = new ol.View;
-    var attraction1 = [52.516286, 13.377714];
+    var brandGate = [1489390.555468, 6894121.696014];
+    var karlstejnCastle = [1579435.036057, 6435809.077698];
+    var charlesBridge = [1604310.511449, 6461264.996774];
+    var fortress = [1452425.694036, 6072856.755602];
+    var schonCastle = [1816139.014742, 6138031.913413];
 
     function onClick(id, callback) {
         document.getElementById(id).addEventListener('click', callback);
     }
-
+    
     onClick('feature-to-do', function() {
-        console.log('hej :)');
-    view({
-        center: attraction1,
-        duration: 2000
-    });
+        const attractionAddress = document.getElementById('attraction-address');
+        const attractionDescription = document.getElementById('attraction-description');
+        attractionAddress.innerHTML = currentFeature.get('attractionaddress');;
+        attractionDescription.innerHTML = currentFeature.get('attractiondescrip');
+        document.getElementById('attraction-info-div').style.display = 'block';
+
+        if(currentFeature.get('name') === 'Germany'){
+            view.animate({
+                    center: brandGate,
+                    zoom: 12
+                })
+        } 
+        if(currentFeature.get('name') === 'Czech Republic'){
+            view.animate({
+                    center: karlstejnCastle,
+                    zoom: 12
+                })
+        } 
+        if(currentFeature.get('name') === 'Prague'){
+            view.animate({
+                    center: charlesBridge,
+                    zoom: 12
+                })
+        } 
+        if(currentFeature.get('name') === 'Austria'){
+            view.animate({
+                    center: fortress,
+                    zoom: 12
+                })
+        } 
+        if(currentFeature.get('name') === 'Vienna'){
+            view.animate({
+                    center: schonCastle,
+                    zoom: 12
+                })
+        } 
     })
 }
