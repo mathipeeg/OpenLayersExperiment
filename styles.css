@@ -107,12 +107,12 @@ background: #eee;
 }
 
 /* ------Feature Overlay------ */
-.overlay-container{
+.overlay-container-countries, .overlay-container-attractions{
   background: rgba(246, 246, 246, 0.8);
   width: 180px;
   text-align: center;
   border-radius: 1px;
-  padding: 2px;
+  padding: 3px;
   position: absolute;
   z-index: 1;
   bottom: 100%;
@@ -120,6 +120,7 @@ background: #eee;
   margin-left: -80px;
   border-radius: 20px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  height: auto;
 }
 
 .overlay-text{
@@ -127,7 +128,7 @@ background: #eee;
   opacity: 1;
 }
 
-.overlay-container #feature-additional-info::after{
+.overlay-container-countries #feature-additional-info::after{
   content: '';
   position: absolute;
   top: 100%;
@@ -138,30 +139,38 @@ background: #eee;
   border-color: #555 transparent transparent transparent;
 }
 
-#feature-name{
+.overlay-container-attractions #feature-address::after{
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -10ox;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+#feature-name, #feature-attraction-name{
   font-size: larger;
   font-weight: bold;
 }
 
-#feature-additional-info{
+#feature-additional-info, #feature-address{
   font-size: smaller;
 }
 
-#feature-to-do{
-  background: none;
-  border: none;
-  padding: 0;
+#feature-address{
   cursor: pointer;
 }
 
 #attraction-info-div {
 position: absolute;
   padding: 0px;
-  top: 230px;
-  left: 10px;
+  top: 50px;
+  left: 83.5%;
   background: rgba(255, 255, 255, 0.8);
   width: 13rem;
-  height: 14rem;
+  height: 14.5rem;
   overflow: auto;
   border-radius: 7px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
@@ -175,11 +184,28 @@ font-size: 14px;
 margin: 15px;
 }
 
-#attraction-address {
+#attraction-name {
 font-style: italic;
 color: #555;
 }
 
 #attraction-description {
 font-weight: 500;
+}
+
+.search-div {
+  position: absolute;
+  padding: 0px;
+  top: 10px;
+  left: 70%;
+  background: rgba(255, 255, 255, 0.8);
+  overflow: auto;
+  border-radius: 7px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+#search-input {
+  width: 25rem;
+  height: 2rem;
 }

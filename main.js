@@ -1,7 +1,3 @@
-// import {fromLonLat} from 'C:/Users/Math_/AppData/Local/Microsoft/TypeScript/3.8/node_modules/@types/ol/proj';
-//import * as proj from './libs/6.2.1-dist/ol.js';
-
-
 window.onload = init;
 
 function init(){
@@ -54,7 +50,7 @@ function init(){
     map.addLayer(baseLayerGroup);
 
     // Layer Switcher Logic for Basemaps
-    const baseLayerElements = document.querySelectorAll('.checkContainer > input[type=radio]');
+    const baseLayerElements = document.querySelectorAll('.check-container > input[type=radio]');
     for(let baseLayerElement of baseLayerElements){
         baseLayerElement.addEventListener('change', function(){
             let baseLayerElementValue = this.value;
@@ -75,7 +71,7 @@ function init(){
         width: 1.2
     })
 
-    const circleStyle = new ol.style.Circle({
+    let circleStyle = new ol.style.Circle({
         fill: new ol.style.Fill({
             color: [61, 93, 182, 1]
         }),
@@ -83,99 +79,190 @@ function init(){
         stroke: strokeStyle
     })
 
-    const EUCountriesGeoJSON = new ol.layer.VectorImage({
-        source: new ol.source.Vector({
-            url: 'data/vector_data/EUCountries.geojson',
-            format: new ol.format.GeoJSON()
-        }),
+    let vectorSource = new ol.source.Vector({
+        url: 'data/vector_data/CountriesAndCapitals.geojson',
+        format: new ol.format.GeoJSON()
+    });
+
+    let polygonSource = new ol.source.Vector({
+        url: 'data/vector_data/PolygonMAp.geojson',
+        format: new ol.format.GeoJSON()
+    });
+
+    let pointSource = new ol.source.Vector({
+        url: 'data/vector_data/AttractionPoints.geojson',
+        format: new ol.format.GeoJSON()
+    });
+
+    let vectorStyle = new ol.style.Style({
+        fill: fillStyle,
+        stroke: strokeStyle,
+        image: circleStyle
+    });
+
+    let CountriesAndCapitals = new ol.layer.VectorImage({
+        source: vectorSource,
         visible: true,
-        title: 'EUCountriesGeoJSON',
-        style: new ol.style.Style({
-            fill: fillStyle,
-            stroke: strokeStyle,
-            image: circleStyle
-        })
+        title: 'CountriesAndCapitals',
+        style: vectorStyle
     })
 
-    map.addLayer(EUCountriesGeoJSON);
+    let AttractionPoints = new ol.layer.VectorImage({
+        source: pointSource,
+        visible: true,
+        title: 'AttractionPoints',
+        style: vectorStyle
+    })
+
+    let PolygonMap = new ol.layer.VectorImage({
+        source: polygonSource,
+        visible: true,
+        title: 'PolygonMap',
+        style: vectorStyle
+    })
+    /*function redraw() {
+        map.removeLayer(EUCountriesGeoJSON);
+        EUCountriesGeoJSON = new ol.layer.VectorImage({
+            source: vectorSource,
+            visible: true,
+            title: 'EUCountriesGeoJSON',
+            style: new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: [10, 236, 236, 1] //rgb&transparent
+                }),
+                stroke: strokeStyle,
+                image: circleStyle
+            })
+        })
+        map.addLayer(EUCountriesGeoJSON);
+    }*/
+    map.addLayer(CountriesAndCapitals);
+    map.addLayer(AttractionPoints);
+    map.addLayer(PolygonMap);
+    let lastFeature;
     // Vector Feature Popup Logic
-    const overlayContainerElement = document.querySelector('.overlay-container');
+    const overlayContainerElement = document.querySelector('.overlay-container-countries');
+    const overlayContainerAttractions = document.querySelector('.overlay-container-attractions');
     const overlayLayer = new ol.Overlay({
         element: overlayContainerElement
     })
+    const overlayLayerAttractions = new ol.Overlay({
+        element: overlayContainerAttractions
+    })
     map.addOverlay(overlayLayer);
+    map.addOverlay(overlayLayerAttractions);
     const overlayFeatureName = document.getElementById('feature-name');
-    const overlayFeatureAdditionInfo = document.getElementById('feature-additional-info');
-    const overlayFeatureTodo = document.getElementById('feature-to-do');
+    const overlayFeatureAdditionalInfo = document.getElementById('feature-additional-info');
+    const overlayFeatureToDo = document.getElementById('feature-to-do');
+    const overlayFeatureAttrName = document.getElementById('feature-attraction-name');
+    const overlayFeatureAddress = document.getElementById('feature-address');
 
     map.on('click', function(e){
         overlayLayer.setPosition(undefined);
+        overlayLayerAttractions.setPosition(undefined);
         document.getElementById('attraction-info-div').style.display = 'none';
         //^ fjerner boksene når der klikkes
+        if (!isLayerVisible) {
+            map.addLayer(PolygonMap)
+            isLayerVisible = true;
+        }
         map.forEachFeatureAtPixel(e.pixel, function(feature, layer){
+            if (lastFeature){
+                if (lastFeature.get('attractionaddress').length > 0){
+                    lastFeature = null;
+                    return;
+                }
+            }
             currentFeature = feature;
             let clickedCoordinate = e.coordinate;
             let clickedFeatureName = feature.get('name');
-            let clickedFeatureAdditionInfo = feature.get('additionalinfo');
-            let clickedFeatureTodo = feature.get('todo');
-            overlayLayer.setPosition(clickedCoordinate);
-            overlayFeatureName.innerHTML = clickedFeatureName;
-            overlayFeatureAdditionInfo.innerHTML = clickedFeatureAdditionInfo;
-            overlayFeatureTodo.innerHTML = 'To see: \n' + clickedFeatureTodo;
+            if(feature.get('additionalinfo') !== undefined ){
+                let clickedFeatureAdditionInfo = feature.get('additionalinfo');
+                let clickedFeatureTodo = feature.get('todo');
+                overlayLayer.setPosition(clickedCoordinate);
+
+                overlayFeatureName.innerHTML = clickedFeatureName;
+                overlayFeatureAdditionalInfo.innerHTML = clickedFeatureAdditionInfo;
+                overlayFeatureToDo.innerHTML = 'To see: ' + clickedFeatureTodo;   
+                lastFeature = currentFeature;
+            } else {
+                let clickedFeatureAddress = feature.get('attractionaddress');
+                overlayLayerAttractions.setPosition(clickedCoordinate);
+
+                overlayFeatureAttrName.innerHTML = clickedFeatureName;
+                overlayFeatureAddress.innerHTML = clickedFeatureAddress;
+                lastFeature = currentFeature;
+            }
+            view.animate({
+                center: clickedCoordinate,
+            zoom: 6
+            })
         },
         {
             layerFilter: function(layerCandidate){
-                return layerCandidate.get('title') == 'EUCountriesGeoJSON'
+                return layerCandidate.get('title') == 'AttractionPoints', 'CountriesAndCapitals', 'PolygonMap' 
             }
         })
     })  
-
-    var brandGate = [1489390.555468, 6894121.696014];
-    var karlstejnCastle = [1579435.036057, 6435809.077698];
-    var charlesBridge = [1604310.511449, 6461264.996774];
-    var fortress = [1452425.694036, 6072856.755602];
-    var schonCastle = [1816139.014742, 6138031.913413];
 
     function onClick(id, callback) {
         document.getElementById(id).addEventListener('click', callback);
     }
     
-    onClick('feature-to-do', function() {
-        const attractionAddress = document.getElementById('attraction-address');
+    let isLayerVisible = true
+
+    onClick('feature-address', function(e) {
+
+        console.log(currentFeature.style);
+        cu
+        if (isLayerVisible){
+            map.removeLayer(PolygonMap)
+            isLayerVisible = false;
+        } else {
+            map.addLayer(PolygonMap)
+            isLayerVisible = true;
+        }
+        const attractionName = document.getElementById('attraction-name');
         const attractionDescription = document.getElementById('attraction-description');
-        attractionAddress.innerHTML = currentFeature.get('attractionaddress');;
+        attractionName.innerHTML = currentFeature.get('name');;
         attractionDescription.innerHTML = currentFeature.get('attractiondescrip');
         document.getElementById('attraction-info-div').style.display = 'block';
+        view.animate({
+            center: e.coordinate,
+            zoom: 12
+        })
 
-        if(currentFeature.get('name') === 'Germany'){
-            view.animate({
-                    center: brandGate,
-                    zoom: 12
-                })
-        } 
-        if(currentFeature.get('name') === 'Czech Republic'){
-            view.animate({
-                    center: karlstejnCastle,
-                    zoom: 12
-                })
-        } 
-        if(currentFeature.get('name') === 'Prague'){
-            view.animate({
-                    center: charlesBridge,
-                    zoom: 12
-                })
-        } 
-        if(currentFeature.get('name') === 'Austria'){
-            view.animate({
-                    center: fortress,
-                    zoom: 12
-                })
-        } 
-        if(currentFeature.get('name') === 'Vienna'){
-            view.animate({
-                    center: schonCastle,
-                    zoom: 12
-                })
-        } 
+        
+
     })
+
+    //SEARCH
+    // function sort() {
+    //     var input, filter, table, tr, td, i, txtValue;
+    //     input = document.getElementById("myInput");
+    //     filter = input.value.toUpperCase();
+    //     table = document.getElementById("question-table");
+    //     tr = table.getElementsByTagName("tr");
+    //     for (i = 0; i < tr.length; i++) {
+    //         td = tr[i].getElementsByTagName("td")[0];
+    //         if (td) {
+    //             txtValue = td.textContent || td.innerText;
+    //             if (txtValue.toUpperCase().indexOf(filter) > -1) {
+    //                 tr[i].style.display = "";
+    //                 continue;
+    //             } else {
+    //                 tr[i].style.display = "none";
+    //             }
+    //         }
+    //         td1 = tr[i].getElementsByTagName("td")[1];
+    //         if (td1) {
+    //             txtValue = td1.textContent || td1.innerText;
+    //             if (txtValue.toUpperCase().indexOf(filter) > -1) {
+    //                 tr[i].style.display = "";
+    //             } else {
+    //                 tr[i].style.display = "none";
+    //             }
+    //         }
+    //     }
+    // }
 }

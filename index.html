@@ -22,14 +22,22 @@
                <span class='checkmark'></span>
             </label>
         </div>
+        <div class ='search-div'>
+            <input type="text" id="search-input" placeholder="Search..." title="Type in a title"> 
+            <!-- onkeyup='sortTable()' -->
+        </div>
         <div id='attraction-info-div'>
-            <span class='attraction-text' id='attraction-address' value='attrationaddress'></span><br><br>
+            <span class='attraction-text' id='attraction-name' value='attractionname'></span><br><br>
             <span class='attraction-text' id='attraction-description' value='attractiondescrip'></span>
         </div>
-        <div class="overlay-container">
+        <div class="overlay-container-countries">
             <span class='overlay-text' id='feature-name'></span><br>
             <span class='overlay-text' id='feature-additional-info'></span><br><br>
-            <button class='overlay-text' id='feature-to-do'></button><br>
+            <span class='overlay-text' id='feature-to-do'></span><br>
+        </div>
+        <div class="overlay-container-attractions">
+            <span class='overlay-text' id='feature-attraction-name'></span><br>
+            <span class='overlay-text' id='feature-address'></span><br><br>
         </div>
         <div class="map-div">
             <div id='js-map' class='map'></div> 
