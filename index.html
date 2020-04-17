@@ -10,11 +10,11 @@
     <div class='wrapper'>
         <div class='radio-div' id='radio-div'>
             <label class='check-container'>
-                <input class='check-container' type="radio" name='baseLayerRadioBtn' value='OSMStandard' checked>Standard<br>
+                <input class='check-container' type="radio" name='baseLayerRadioBtn' value='OSMStandard'>Standard<br>
                 <span class='checkmark'></span>
             </label>
             <label class='check-container'>
-                <input class='check-container' type="radio" name='baseLayerRadioBtn' value='OSMHumanitarian'>Humanitarian<br>            
+                <input class='check-container' type="radio" name='baseLayerRadioBtn' value='OSMHumanitarian' checked>Humanitarian<br>            
                 <span class='checkmark'></span>
             </label>
             <label class='check-container'>
@@ -22,9 +22,57 @@
                <span class='checkmark'></span>
             </label>
         </div>
-        <div class ='search-div'>
+        <div class='empire-div' id='empire-div'>
+            <label class='check-empire-container'>
+                <input class='check-empire-container' type="radio" name='empire-view' id='standard-view' value='standard-view' checked>Standard View<br>
+                <span class='checkmark'></span>
+            </label>
+            <label class='check-empire-container'>
+                <input class='check-empire-container' type="radio" name='empire-view' id='empire-view' value='empire-view'>Empire View<br>            
+                <span class='checkmark'></span>
+            </label>
+        </div>
+        <div class='empire-choice-div' id='empire-choice-div'>
+            <label class='check-empire-choice-container'>
+                <input class='check-empire-choice-container' type="radio" name='empire-choice' id='showall' value='Show All' checked>Show All<br>
+                <span class='checkmark'></span>
+            </label>
+            <label class='check-empire-choice-container'>
+                <input class='check-empire-choice-container' type="radio" name='empire-choice' id='akkadin' value='Akkadin Empire'>Akkadin Empire<br>
+                <span class='checkmark'></span>
+            </label>
+            <label class='check-empire-choice-container'>
+                <input class='check-empire-choice-container' type="radio" name='empire-choice' id='roman' value='Roman Empire'>Roman Empire<br>            
+                <span class='checkmark'></span>
+            </label>
+            </label>
+            <label class='check-empire-choice-container'>
+                <input class='check-empire-choice-container' type="radio" name='empire-choice' id='qing-dynasty' value='Qing Dynasty'>Qing Dynasty<br>            
+                <span class='checkmark'></span>
+            </label>
+            </label>
+            <label class='check-empire-choice-container'>
+                <input class='check-empire-choice-container' type="radio" name='empire-choice' id='russian' value='Russian Empire'>Russian Empire<br>            
+                <span class='checkmark'></span>
+            </label>
+            <label class='check-empire-choice-container'>
+                <input class='check-empire-choice-container' type="radio" name='empire-choice' id='british' value='British Empire'>British Empire<br>            
+                <span class='checkmark'></span>
+            </label>
+        </div>
+        <div id='place-point-div'>
+            <input class='place-point' type='button' name='place-point-btn' id='place-point-btn' value='PLACE'>
+        </div>
+        <div id='new-point-info-div'>
+            <input class='new-point-info' type='text' name='new-point-name' id='new-point-name' placeholder="Enter name pls...">
+            <br>
+            <input class='new-point-info' type='text' name='new-point-info' id='new-point-info' placeholder="Enter info pls...">
+            <br>
+            <input class='new-point-info' type='submit' name='new-point-submit' id='new-point-submit' value='HEELLL YA'>
+            <span class='overlay-text' id='new-point-info'></span>
+        </div>
+        <div class='search-div'>
             <input type="text" id="search-input" placeholder="Search..." title="Type in a title"> 
-            <!-- onkeyup='sortTable()' -->
         </div>
         <div id='attraction-info-div'>
             <span class='attraction-text' id='attraction-name' value='attractionname'></span><br><br>
@@ -38,6 +86,10 @@
         <div class="overlay-container-attractions">
             <span class='overlay-text' id='feature-attraction-name'></span><br>
             <span class='overlay-text' id='feature-address'></span><br><br>
+        </div>
+        <div class="overlay-container-empires">
+            <span class='overlay-text' id='feature-empire-name'></span><br>
+            <span class='overlay-text' id='feature-year'></span><br><br>
         </div>
         <div class="map-div">
             <div id='js-map' class='map'></div> 
